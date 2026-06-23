@@ -29,11 +29,6 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that c
 
 ## Installation
 
-```bash
-pip install ssas-mcp-server
-```
-
-Or install from source:
 
 ```bash
 git clone https://github.com/NexusAI-Solutions/ssas-mcp-server.git
