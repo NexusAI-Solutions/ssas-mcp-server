@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
@@ -19,6 +19,10 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Database",
 ]
 dependencies = [
@@ -26,7 +30,21 @@ dependencies = [
     "pyadomd>=0.1.0",
 ]
 
+[project.scripts]
+ssas-mcp-server = "ssas_mcp_server.__main__:main"
+
 [project.urls]
 Homepage = "https://www.nexus-ai.nl"
 Repository = "https://github.com/NexusAI-Solutions/ssas-mcp-server"
 Issues = "https://github.com/NexusAI-Solutions/ssas-mcp-server/issues"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/ssas_mcp_server",
+    "/README.md",
+    "/LICENSE",
+    "/pyproject.toml",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["ssas_mcp_server"]

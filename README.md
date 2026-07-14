@@ -29,6 +29,17 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that c
 
 ## Installation
 
+```bash
+pip install ssas-mcp-server
+```
+
+After installation, the server can be started with:
+
+```bash
+ssas-mcp-server
+```
+
+Or install from source:
 
 ```bash
 git clone https://github.com/NexusAI-Solutions/ssas-mcp-server.git
@@ -55,10 +66,16 @@ The server is configured through environment variables:
 ```bash
 set SSAS_SERVER=SERVER\INSTANCE
 set SSAS_DATABASE=My Cube
-python -m ssas_mcp_server
+ssas-mcp-server
 ```
 
 The server starts in stdio mode and waits for an MCP client to connect.
+
+You can also run it as a Python module:
+
+```bash
+python -m ssas_mcp_server
+```
 
 ### VS Code / Codex
 
@@ -68,8 +85,7 @@ Add this to your `.vscode/mcp.json`:
 {
   "servers": {
     "ssas": {
-      "command": "python",
-      "args": ["-m", "ssas_mcp_server"],
+      "command": "ssas-mcp-server",
       "env": {
         "SSAS_SERVER": "SERVER\\INSTANCE",
         "SSAS_DATABASE": "My Cube"
@@ -82,7 +98,7 @@ Add this to your `.vscode/mcp.json`:
 ### Claude Code
 
 ```bash
-claude mcp add ssas -- python -m ssas_mcp_server
+claude mcp add ssas -- ssas-mcp-server
 ```
 
 Then set the environment variables in your shell before starting Claude Code, or pass them inline.
@@ -95,8 +111,7 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "ssas": {
-      "command": "python",
-      "args": ["-m", "ssas_mcp_server"],
+      "command": "ssas-mcp-server",
       "env": {
         "SSAS_SERVER": "SERVER\\INSTANCE",
         "SSAS_DATABASE": "My Cube"
@@ -140,3 +155,47 @@ where /r "C:\Program Files" Microsoft.AnalysisServices.AdomdClient.dll
 ## License
 
 MIT
+
+## Publishing to PyPI
+
+Install the packaging tools:
+
+```bash
+python -m pip install --upgrade build twine
+```
+
+Build and validate the distribution files:
+
+```bash
+python -m build
+python -m twine check dist/*
+```
+
+Upload to TestPyPI first:
+
+```bash
+python -m twine upload --repository testpypi dist/*
+```
+
+If the TestPyPI package installs and runs correctly, upload to PyPI:
+
+```bash
+python -m twine upload dist/*
+```
+
+### Automatic publishing from GitHub
+
+This repository includes a GitHub Actions workflow that builds and publishes the
+package to PyPI when a GitHub Release is published.
+
+To enable it, create a PyPI Trusted Publisher for this project:
+
+- **PyPI project name:** `ssas-mcp-server`
+- **Owner:** `NexusAI-Solutions`
+- **Repository name:** `ssas-mcp-server`
+- **Workflow name:** `publish.yml`
+- **Environment name:** `pypi`
+
+Then publish a GitHub Release after bumping the version in `pyproject.toml`.
+PyPI does not allow replacing an existing version, so every release must use a
+new version number.

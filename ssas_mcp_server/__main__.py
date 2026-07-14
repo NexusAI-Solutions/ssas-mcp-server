@@ -1,5 +1,12 @@
-"""Allow running the server with: python -m ssas_mcp_server"""
+"""Command-line entry point for the SSAS MCP server."""
 
 from ssas_mcp_server.server import mcp
 
-mcp.run(transport="stdio")
+
+def main() -> None:
+    """Run the MCP server over stdio."""
+    mcp.run(transport="stdio")
+
+
+if __name__ == "__main__":
+    main()
