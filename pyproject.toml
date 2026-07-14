@@ -34,7 +34,7 @@ dependencies = [
 ssas-mcp-server = "ssas_mcp_server.__main__:main"
 
 [project.urls]
-Homepage = "https://www.nexus-ai.nl"
+Homepage = "https://www.nexus-ai.nl/insights/ssas-mcp-server-connect-ai-agents-to-your-analysis-services-cubes"
 Repository = "https://github.com/NexusAI-Solutions/ssas-mcp-server"
 Issues = "https://github.com/NexusAI-Solutions/ssas-mcp-server/issues"
 
